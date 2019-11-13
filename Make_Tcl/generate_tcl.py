@@ -82,8 +82,9 @@ parser.add_argument('-i', '--temp_file', type=str,
                     help='template file for modifying', required=True)
 parser.add_argument('--runname', type=str,
                     help='run name of the simulation', required=True)
-parser.add_argument('-sl', '--slope_file', type=str,
-                    help='name of the slope file, either in x or y direction',
+parser.add_argument('-sl', '--slope_dir', type=str,
+                    help='path to directory containing slope files named '
+                         'slopex.pfb and slopey.pfb',
                     required=True)
 parser.add_argument('-so', '--solid_file', type=str,
                     help='name of the solid file', required=True)
@@ -148,7 +149,7 @@ parser.add_argument('-nz', type=int, default=1,
 parser.add_argument('--dz_scales', nargs='+',
                     help='dz scale to be multiplied with dz (optional). '
                          'Default is 0.5', required=False)
-parser.add_argument('--batches' ,nargs='+',
+parser.add_argument('--batches', nargs='+',
                     help='batches in domain (required)', required=True)
 
 # parsing arguments
@@ -164,7 +165,7 @@ R = args.R
 # parsing input files
 temp_file = args.temp_file
 runname = args.runname
-slope_file = args.slope_file
+slope_dir = args.slope_dir
 solid_file = args.solid_file
 evap_choice = args.evap
 evap_file = args.evap_file
@@ -220,15 +221,11 @@ results['Process.Topology.Q']['vals'][0][-1] = str(Q)
 results['Process.Topology.R']['vals'][0][-1] = str(R)
 
 # change input files
-if 'slopex' in slope_file:
-    slope_file_y = slope_file.replace('slopex', 'slopey')
-    slope_file_x = slope_file
-elif 'slopey' in slope_file:
-    slope_file_x = slope_file.replace('slopey', 'slopex')
-    slope_file_y = slope_file
-else:
-    print('please check slopefile names')
-    sys.exit()
+
+# set slopex and slopey relative to the output directory
+odir = os.path.dirname(out_file)
+slope_file_x = os.path.relpath(os.path.join(slope_dir, 'slopex.pfb'), odir)
+slope_file_y = os.path.relpath(os.path.join(slope_dir, 'slopey.pfb'), odir)
 
 results['file copy -force']['vals'][0][-2] = slope_file_x
 results['file copy -force']['vals'][1][-2] = slope_file_y
