@@ -224,12 +224,12 @@ results['Process.Topology.R']['vals'][0][-1] = str(R)
 
 # set slopex and slopey relative to the output directory
 odir = os.path.dirname(out_file)
-slope_file_x = os.path.relpath(os.path.join(slope_dir, 'slopex.pfb'), odir)
-slope_file_y = os.path.relpath(os.path.join(slope_dir, 'slopey.pfb'), odir)
+slope_file_x = os.path.join(slope_dir, 'slopex.pfb')
+slope_file_y = os.path.join(slope_dir, 'slopey.pfb')
 
-results['file copy -force']['vals'][0][-2] = slope_file_x
-results['file copy -force']['vals'][1][-2] = slope_file_y
-results['file copy -force']['vals'][2][-2] = solid_file
+results['file copy -force']['vals'][0][-2] = os.path.relpath(slope_file_x, odir)
+results['file copy -force']['vals'][1][-2] = os.path.relpath(slope_file_y, odir)
+results['file copy -force']['vals'][2][-2] = os.path.relpath(solid_file, odir)
 if evap_choice == 0:
     results['file copy -force']['vals'][3][0] = '#'+results['file copy -force']['vals'][3][0]
 else:
