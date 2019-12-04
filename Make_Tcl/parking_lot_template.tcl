@@ -69,7 +69,7 @@ pfset dzScale.nzListNumber       1
 
 #pfset dzScale.Type            nzList
 #pfset dzScale.nzListNumber       3
-pfset Cell.0.dzScale.Value 0.5
+pfset Cell.0.dzScale.Value 0.001
 pfset Cell.1.dzScale.Value 0.5
 pfset Cell.2.dzScale.Value 0.5
 pfset Cell.3.dzScale.Value 0.5
@@ -83,7 +83,7 @@ pfset Geom.Perm.Names                 "domain"
 # Values in m/hour
 
 pfset Geom.domain.Perm.Type             Constant
-pfset Geom.domain.Perm.Value            0.02849
+pfset Geom.domain.Perm.Value            1.0e-6
 
 
 pfset Perm.TensorType               TensorByGeom
@@ -137,14 +137,13 @@ pfset Gravity				1.0
 #-----------------------------------------------------------------------------
 
 #
-pfset TimingInfo.BaseUnit        0.1
+pfset TimingInfo.BaseUnit        0.5
 pfset TimingInfo.StartCount      0.0
-pfset TimingInfo.StartTime       0.
-pfset TimingInfo.StopTime        300.
-#pfset TimingInfo.StopTime	72.0
-pfset TimingInfo.DumpInterval    -1
+pfset TimingInfo.StartTime       0.0
+pfset TimingInfo.StopTime        50.0
+pfset TimingInfo.DumpInterval    -1.0
 pfset TimeStep.Type              Constant
-pfset TimeStep.Value             0.1
+pfset TimeStep.Value             0.5
 #pfset TimeStep.Type Growth
 #pfset TimeStep.InitialStep 0.01
 #pfset TimeStep.GrowthFactor 1.4
@@ -212,8 +211,8 @@ pfset Cycle.constant.Repeat             -1
 # rain for 0.2 hour, recession for 30 hours
 
 pfset Cycle.rainrec.Names                 "rain rec"
-pfset Cycle.rainrec.rain.Length           2.
-pfset Cycle.rainrec.rec.Length            300.
+pfset Cycle.rainrec.rain.Length           10
+pfset Cycle.rainrec.rec.Length            20
 pfset Cycle.rainrec.Repeat                -1
 
 #-----------------------------------------------------------------------------
