@@ -230,9 +230,10 @@ slope_file_y = os.path.join(slope_dir, 'slopey.pfb')
 results['file copy -force']['vals'][0][-2] = os.path.relpath(slope_file_x, odir)
 results['file copy -force']['vals'][1][-2] = os.path.relpath(slope_file_y, odir)
 results['file copy -force']['vals'][2][-2] = os.path.relpath(solid_file, odir)
-if evap_choice == 0:
-    results['file copy -force']['vals'][3][0] = '#'+results['file copy -force']['vals'][3][0]
-else:
+
+if evap_choice != 0:
+#    results['file copy -force']['vals'][3][0] = '#'+results['file copy -force']['vals'][3][0]
+#else:
     results['file copy -force']['vals'][3][-2] = evap_file
 
 # change parameters
@@ -243,12 +244,12 @@ results['Geom.domain.Porosity.Value']['vals'][0][-1] = str(poros)
 if evap_choice == 0:
     # comment out evap file
     results['Solver.EvapTransFile']['vals'][0][-1] = 'False'
-    results['Solver.EvapTrans.FileName']['vals'][0][0] = '#'+results['Solver.EvapTrans.FileName']['vals'][0][0]
+#    results['Solver.EvapTrans.FileName']['vals'][0][0] = '#'+results['Solver.EvapTrans.FileName']['vals'][0][0]
     if constant == 1:
-        # comment out rain rec
-        results['Patch.top.BCPressure.Cycle']['vals'][0][0] = '#'+results['Patch.top.BCPressure.Cycle']['vals'][0][0]
-        results['Patch.top.BCPressure.rain.Value']['vals'][0][0] = '#'+results['Patch.top.BCPressure.rain.Value']['vals'][0][0]
-        results['Patch.top.BCPressure.rec.Value']['vals'][0][0] = '#'+results['Patch.top.BCPressure.rec.Value']['vals'][0][0]
+ #       # comment out rain rec
+ #       results['Patch.top.BCPressure.Cycle']['vals'][0][0] = '#'+results['Patch.top.BCPressure.Cycle']['vals'][0][0]
+ #       results['Patch.top.BCPressure.rain.Value']['vals'][0][0] = '#'+results['Patch.top.BCPressure.rain.Value']['vals'][0][0]
+ #       results['Patch.top.BCPressure.rec.Value']['vals'][0][0] = '#'+results['Patch.top.BCPressure.rec.Value']['vals'][0][0]
 
         # set constant input
         results['Patch.top.BCPressure.Cycle']['vals'][1][-1] = '\"constant\"'
@@ -262,9 +263,9 @@ if evap_choice == 0:
         results['Patch.top.BCPressure.rain.Value']['vals'][0][-1] = str(rain)
         results['Patch.top.BCPressure.rec.Value']['vals'][0][-1] = str(rec)
 
-        # comment out constant input
-        results['Patch.top.BCPressure.Cycle']['vals'][1][0] = '#'+results['Patch.top.BCPressure.Cycle']['vals'][1][0]
-        results['Patch.top.BCPressure.alltime.Value']['vals'][0][0] = '#'+results['Patch.top.BCPressure.alltime.Value']['vals'][0][0]
+#        # comment out constant input
+#        results['Patch.top.BCPressure.Cycle']['vals'][1][0] = '#'+results['Patch.top.BCPressure.Cycle']['vals'][1][0]
+#        results['Patch.top.BCPressure.alltime.Value']['vals'][0][0] = '#'+results['Patch.top.BCPressure.alltime.Value']['vals'][0][0]
 else:
     # change evap files
     results['Patch.top.BCPressure.Cycle']['vals'][1][-1] = '\"constant\"'
@@ -290,10 +291,9 @@ results['TopoSlopesY.FileName']['vals'][0][-1] = os.path.basename(slope_file_y)
 
 results['pfdist']['vals'][0][-1] = os.path.basename(slope_file_x)
 results['pfdist']['vals'][1][-1] = os.path.basename(slope_file_y)
-results['pfdist']['vals'][2][0] = '#'+results['pfdist']['vals'][2][0]
+#results['pfdist']['vals'][2][0] = '#'+results['pfdist']['vals'][2][0]
 
 # read slope file x into array
-import pdb; pdb.set_trace()
 slope_x = pfio.pfread(slope_file_x)
 nz0, ny0, nx0 = slope_x.shape
 
