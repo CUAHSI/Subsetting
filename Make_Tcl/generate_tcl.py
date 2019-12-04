@@ -154,7 +154,6 @@ parser.add_argument('--batches', nargs='+',
 
 # parsing arguments
 args = parser.parse_args()
-
 out_file = args.out_file
 
 # parsing processor info
@@ -169,6 +168,7 @@ slope_dir = args.slope_dir
 solid_file = args.solid_file
 evap_choice = args.evap
 evap_file = args.evap_file
+
 
 if evap_choice == 0 and evap_file:
     parser.error('--evap_file can only be set when -evap=1.')
@@ -293,6 +293,7 @@ results['pfdist']['vals'][1][-1] = os.path.basename(slope_file_y)
 results['pfdist']['vals'][2][0] = '#'+results['pfdist']['vals'][2][0]
 
 # read slope file x into array
+import pdb; pdb.set_trace()
 slope_x = pfio.pfread(slope_file_x)
 nz0, ny0, nx0 = slope_x.shape
 
